@@ -1,16 +1,21 @@
+'use server';
+
 import { draftMode, cookies } from "next/headers";
 
-export async function fetchGraphQL<T = any>(
+// Définition d'un type générique pour les variables
+type Variables = Record<string, unknown>;
+
+export async function fetchGraphQL<T = unknown>(
   query: string,
-  variables?: { [key: string]: any },
-  headers?: { [key: string]: string },
+  variables?: Variables,
+  headers?: Record<string, string>,
 ): Promise<T> {
-  const { isEnabled: preview } = draftMode();
+  const { isEnabled: preview } = await draftMode();
 
   try {
     let authHeader = "";
     if (preview) {
-      const auth = cookies().get("wp_jwt")?.value;
+      const auth = (await cookies()).get("wp_jwt")?.value;
       if (auth) {
         authHeader = `Bearer ${auth}`;
       }
@@ -59,3 +64,4 @@ export async function fetchGraphQL<T = any>(
     throw error;
   }
 }
+

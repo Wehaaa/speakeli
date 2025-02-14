@@ -1,6 +1,18 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+interface RedirectItem {
+  url: string;
+  action_data: {
+    url: string;
+  };
+  action_code: number;
+}
+
+interface RedirectResponse {
+  items: RedirectItem[];
+}
+
 export async function middleware(request: NextRequest) {
   if (!process.env.WP_USER || !process.env.WP_APP_PASS) {
     return NextResponse.next();
@@ -23,11 +35,11 @@ export async function middleware(request: NextRequest) {
     },
   );
 
-  const data = await response.json();
+  const data = await response.json() as RedirectResponse;
 
   if (data?.items?.length > 0) {
     const redirect = data.items.find(
-      (item: any) => item.url === pathnameWithoutTrailingSlash,
+      (item: RedirectItem) => item.url === pathnameWithoutTrailingSlash,
     );
 
     if (!redirect) {

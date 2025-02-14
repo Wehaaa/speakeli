@@ -11,13 +11,18 @@ async function getTotalCounts() {
   const propertyNames = Object.keys(data);
 
   const excludeItems = ["page", "user", "category", "tag"];
-  let totalArray = propertyNames
+  const totalArray = propertyNames
     .filter((name) => !excludeItems.includes(name))
     .map((name) => {
       return { name, total: data[name] };
     });
 
   return totalArray;
+}
+
+interface WordPressPost {
+  url: string;
+  post_modified_date: string;
 }
 
 async function getPostsUrls({
@@ -37,7 +42,7 @@ async function getPostsUrls({
 
   if (!data) return [];
 
-  const posts = data.map((post: any) => {
+  const posts = data.map((post: WordPressPost) => {
     return {
       url: `${process.env.NEXT_PUBLIC_BASE_URL}${post.url}`,
       lastModified: new Date(post.post_modified_date)
