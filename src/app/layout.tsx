@@ -1,7 +1,5 @@
 import { Bebas_Neue, Montserrat } from "next/font/google";
 import "@/app/globals.css";
-import Header from "@/components/globals/Header";
-import Footer from "@/components/globals/Footer";
 
 const bebasNeue = Bebas_Neue({ 
   weight: '400', // Ajout du weight obligatoire
@@ -25,11 +23,11 @@ export default async function RootLayout({
   return (
     <html lang="fr">
       <body className={`${bebasNeue.className} ${montserrat.className}`}>
-        <Header />
+        {/* <Header />
         <main>
           {children}
         </main>
-        <Footer />
+        <Footer /> */}
       </body>
     </html>
   );
