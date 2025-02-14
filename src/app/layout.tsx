@@ -23,6 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="fr">
       <body className={`${bebasNeue.className} ${montserrat.className}`}>
+        <div></div>
         {/* <Header />
         <main>
           {children}
