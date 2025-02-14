@@ -12,14 +12,12 @@ const montserrat = Montserrat({
   variable: '--font-montserrat' // Ajoutez ceci
 });
 
-type RootLayoutProps = {
-  children: React.ReactNode;
-  params: Promise<{ slug?: string[] }>;
-};
+// type RootLayoutProps = {
+//   children: React.ReactNode;
+//   params: Promise<{ slug?: string[] }>;
+// };
  
-export default async function RootLayout({
-  children,
- }: RootLayoutProps) {
+export default async function RootLayout() {
   return (
     <html lang="fr">
       <body className={`${bebasNeue.className} ${montserrat.className}`}>
